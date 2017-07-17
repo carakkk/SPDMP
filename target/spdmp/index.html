@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>海善达产品数据管理平台</title>
+    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link
+            href="//cdn.bootcss.com/jstree/3.3.1/themes/default-dark/style.min.css"
+            rel="stylesheet">
+    <link href="//cdn.bootcss.com/jstree/3.3.1/themes/default/style.min.css"
+          rel="stylesheet">
+    <link
+            href="//cdn.bootcss.com/jquery-contextmenu/2.2.3/jquery.contextMenu.min.css"
+            rel="stylesheet">
+    <link href="css/jquery.mCustomScrollbar.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+</head>
+<body>
+<div id="container" class="container-fluid no-padding-margin">
+
+    <div id="header" class="row no-padding-margin">
+        <div class="col-md-12 no-padding-margin">
+            <img src="images/index/header.jpg" class="img-responsive" alt="Responsive image">
+        </div>
+    </div>
+
+    <div id="content" class="row no-padding-margin">
+        <!--产品列表-->
+        <div id="productList" class="col-md-2 no-padding-margin">
+            <div id="productListHeader">
+                <img src="images/index/product-list.jpg" class="img-responsive"
+                     alt="Responsive image">
+            </div>
+            <div id="productListContent" class="mCustomScrollbar" data-mcs-theme="minimal-dark">
+                <div class="editor">
+                    <button id="addProductBtn" type="button" class="editor btn btn-primary btn-lg font-custom">
+                        &nbsp;&nbsp;&nbsp;&nbsp;新建产品&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                    </button>
+                </div>
+
+                <div>
+                    <table id="productListTable" class="table table-hover"></table>
+                </div>
+            </div>
+        </div>
+
+        <!--产品树-->
+        <div id="productTree" class="col-md-6 no-padding-margin">
+            <div id="productTreeHeader">
+                <img src="images/index/product-tree.jpg" class="img-responsive" alt="Responsive image">
+            </div>
+            <div id="productTreeContent" class="mCustomScrollbar" data-mcs-theme="minimal-dark">
+
+                <div id="productNodeTree">
+                    <div><h3 id="nodeTreeName"></h3></div>
+                    <div id="nodeTreeList"></div>
+                </div>
+                <div id="nodeTreeBtns">
+                    <div>
+                        <button id="generateBomBtn" type="button" class="editor btn btn-primary btn-lg font-custom">
+                            生产部BOM
+                        </button>
+                    </div>
+                    <div>
+                        <button id="releaseBomBtn" type="button" class="editor btn btn-success btn-lg">
+                            <p class="no-padding-margin font-custom">发布</p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--产品信息-->
+        <div id="productInfo" class="col-md-4 no-padding-margin">
+            <div id="productInfoHeader">
+                <img src="images/index/product-info.jpg" class="img-responsive" alt="Responsive image">
+            </div>
+            <div id="productInfoContent" class="mCustomScrollbar" data-mcs-theme="minimal-dark">
+                <!--组件信息-->
+                <div id="componentDetail" style="display: none;">
+                    <h3 id="componentTitle"></h3>
+                    <button id="editComponentDetailBtn" type="button" class="editor btn btn-primary btn-lg">编辑</button>
+                    <button id="saveComponentDetailBtn" type="button" class="editor btn btn-danger btn-lg save-detail">
+                        保存
+                    </button>
+                    <table class="table table-bordered no-padding-margin">
+                        <tr>
+                            <td>
+                                <p class="text-center p-font">类别</p>
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button"
+                                            id="componentCategoryBtn" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="true">
+                                        <span id="componentCategoryTitle"></span>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul id="componentCategoryMenu" class="dropdown-menu"
+                                        aria-labelledby="componentCategoryMenu">
+
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-center p-font">料号</p>
+                                <div>
+                                    <input id="componentSerialNumber" type="text" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-center p-font">负责人</p>
+                                <div>
+                                    <input id="componentChargePerson" type="text" class="form-control">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="table table-bordered no-padding-margin">
+                        <tr>
+                            <td>
+                                <p class="text-center p-font">供应商</p>
+                                <div>
+                                    <input id="componentSupplier" type="text" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-center p-font">原厂</p>
+                                <div>
+                                    <input id="componentOriginalFactory" type="text" class="form-control">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="table  table-bordered no-padding-margin">
+                        <tr>
+                            <td>
+                                <p class="text-center p-font">单价</p>
+                                <div>
+                                    <input id="componentUnitPrice" type="text" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-center p-font">数量</p>
+                                <div>
+                                    <input id="componentAmount" type="text" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-center p-font">规格</p>
+                                <div>
+                                    <input id="componentStandard" type="text" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-center p-font">版本号</p>
+                                <div>
+                                    <input id="componentVersion" type="text" class="form-control" disabled>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="table table-bordered no-padding-margin">
+                        <tr>
+                            <td>
+                                <p class="text-center p-font">图号</p>
+                                <div class="text-center">
+                                    <a id="download-component-figure" class="btn btn-success" href="#"
+                                       role="button" download><span
+                                            id="component-figure-title" class="glyphicon glyphicon-download"
+                                            aria-hidden="true"></span></a>
+                                </div>
+                                <div style="padding-top: 10px" class="editor">
+                                    <form enctype="multipart/form-data" class="form-inline text-center">
+                                        <div class="form-group">
+                                            <input id="component-figure" class="btn btn-default btn-sm form-control"
+                                                   type="file"
+                                                   name="file"/>
+                                        </div>
+                                        <button id="upload-component-figure" class="btn btn-default btn-sm"
+                                                type="button">上传图号
+                                        </button>
+                                    </form>
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="text-center p-font">备注</p>
+                                <div>
+                                    <textarea id="componentRemark" class="form-control" rows="2"></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="text-align: center;margin-top: 10px;margin-bottom: 10px">
+                        <button type="button" class="font-custom show-upload-document-modal editor btn btn-primary btn-lg">
+                            上传文档
+                        </button>
+                    </div>
+
+                    <table id="component-document-list" class="table table-bordered">
+                        <tr class="document-list-top">
+                            <td>
+                                <p class="text-center p-font">文档名</p>
+                            </td>
+                            <td>
+                                <p class="text-center p-font">文档编号</p>
+                            </td>
+                            <td style="width: 150px">
+                                <p class="text-center p-font">选项</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+
+                <!--劳动信息-->
+                <div id="labourDetail" style="display: none;">
+                    <h3 id="labourTitle"></h3>
+                    <button id="editLabourDetailBtn" type="button" class="editor btn btn-primary btn-lg">编辑</button>
+                    <button id="saveLabourDetailBtn" type="button" class="editor btn btn-danger btn-lg save-detail">保存
+                    </button>
+
+                    <table class="table table-bordered no-padding-margin">
+                        <tr>
+                            <td>
+                                <p class="text-center p-font">劳动类型</p>
+                                <div>
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button"
+                                                id="labourCategoryBtn" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="true">
+                                            <span id="labourCategoryTitle"></span>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul id="labourCategoryMenu" class="dropdown-menu"
+                                            aria-labelledby="labourCategoryMenu">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-center p-font">负责人</p>
+                                <div>
+                                    <input id="labourChargePerson" type="text" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-center p-font">版本号</p>
+                                <div>
+                                    <input id="labourVersion" type="text" class="form-control" disabled>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="table  table-bordered no-padding-margin">
+                        <tr>
+                            <td>
+                                <p class="text-center p-font">单位</p>
+                                <div>
+                                    <input id="labourCompany" type="text" class="form-control">
+                                </div>
+                            </td>
+                            <td>
+                                <p class="text-center p-font">价格</p>
+                                <div>
+                                    <input id="labourPrice" type="text" class="form-control">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="table  table-bordered no-padding-margin">
+                        <tr>
+                            <td>
+                                <p class="text-center p-font">图号</p>
+                                <div class="text-center">
+                                    <a id="download-labour-figure" class="btn btn-success" href="#"
+                                       role="button" download><span
+                                            id="labour-figure-title" class="glyphicon glyphicon-download"
+                                            aria-hidden="true"></span></a>
+
+                                </div>
+                                <div style="padding-top: 10px" class="editor">
+                                    <form enctype="multipart/form-data" class="form-inline text-center">
+                                        <div class="form-group">
+                                            <input id="labour-figure" class="btn btn-default btn-sm form-control"
+                                                   type="file"
+                                                   name="file"/>
+                                        </div>
+                                        <button id="upload-labour-figure" class="btn btn-default btn-sm"
+                                                type="button">上传图号
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="text-center p-font">备注</p>
+                                <div>
+                                    <textarea id="labourRemark" class="form-control" rows="2"></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="text-align: center;margin-top: 10px;margin-bottom: 10px">
+                        <button type="button" class="font-custom show-upload-document-modal editor btn btn-primary btn-lg">上传文档
+                        </button>
+                    </div>
+
+                    <table id="labour-document-list" class="table table-bordered">
+                        <tr class="document-list-top">
+                            <td>
+                                <p class="text-center p-font">文档名</p>
+                            </td>
+                            <td>
+                                <p class="text-center p-font">文档编号</p>
+                            </td>
+                            <td style="width: 150px">
+                                <p class="text-center p-font">选项</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!--新建产品模态框-->
+<div class="modal fade" id="newProductModal" tabindex="-1" role="dialog"
+     aria-labelledby="newProductModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="newProductModalLabel">
+                    新建产品</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputNewProductTitle" class="col-sm-2 control-label">产品名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputNewProductTitle">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputNewProductModel" class="col-sm-2 control-label">产品型号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputNewProductModel">
+                        </div>
+                    </div>
+                </form>
+                <div class="no-padding-margin">
+                    <p id="newProductModalHint"
+                       class="text-center productListModalHint"></p>
+                </div>
+                <form class="form-inline text-center">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" id="newProductBtn">确认
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--修改产品名模态框-->
+<div class="modal fade" id="editProductTitleModal" tabindex="-1"
+     role="dialog" aria-labelledby="editProductTitleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="editProductTitleModalLabel">修改产品名称</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputEditProductTitle" class="col-sm-2 control-label">产品名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control"
+                                   id="inputEditProductTitle">
+                        </div>
+                    </div>
+                </form>
+                <div class="no-padding-margin">
+                    <p id="editProductTitleHint"
+                       class="text-center productListModalHint"></p>
+                </div>
+
+                <form class="form-inline text-center">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary"
+                                id="editProductTitleBtn">确认
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--修改产品型号模态框-->
+<div class="modal fade" id="editProductModelModal" tabindex="-1"
+     role="dialog" aria-labelledby="editProductModelModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="editProductModelModalLabel">修改产品型号</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputEditProductModel" class="col-sm-2 control-label">产品型号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control"
+                                   id="inputEditProductModel">
+                        </div>
+                    </div>
+                </form>
+                <div class="no-padding-margin">
+                    <p id="editProductModelHint"
+                       class="text-center productListModalHint"></p>
+                </div>
+
+                <form class="form-inline text-center">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary"
+                                id="editProductModelBtn">确认
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--删除产品模态框-->
+<div class="modal fade" id="deleteProductModal" tabindex="-1"
+     role="dialog" aria-labelledby="deleteProductModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="deleteProductModalLabel">删除产品</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline text-center">
+                    <div class="form-group">
+                        <button id="deleteProductBtn" class="btn btn-primary"
+                                type="button">确认
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-default" type="button" data-dismiss="modal">取消
+                        </button>
+                    </div>
+                </form>
+                <div class="no-padding-margin">
+                    <p id="deleteProductHint" class="text-center productListModalHint"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--新建同级模态框-->
+<div class="modal fade" id="newPeerNodeModal" tabindex="-1"
+     role="dialog" aria-labelledby="newPeerNodeModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="newPeerNodeModalLabel">
+                    新建同级</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputNewPeerNodeName" class="col-sm-2 control-label">名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputNewPeerNodeName">
+                        </div>
+                    </div>
+                </form>
+                <div class="no-padding-margin">
+                    <p id="newPeerNodeHint" class="text-center nodeTreeModalHint"></p>
+                </div>
+                <form class="form-inline text-center">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" id="newPeerNodeBtn">确认
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--新建下级模态框-->
+<div class="modal fade" id="newSubNodeModal" tabindex="-1" role="dialog"
+     aria-labelledby="newSubNodeModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="newSubNodeModalLabel">
+                    新建下级</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputNewSubNodeName" class="col-sm-2 control-label">名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputNewSubNodeName">
+                        </div>
+                    </div>
+                </form>
+                <div class="no-padding-margin">
+                    <p id="newSubNodeHint" class="text-center nodeTreeModalHint"></p>
+                </div>
+                <form class="form-inline text-center">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" id="newSubNodeBtn">确认
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--新建劳动模态框-->
+<div class="modal fade" id="newLabourModal" tabindex="-1" role="dialog"
+     aria-labelledby="newLabourModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="newLabourModalLabel">
+                    新建劳动</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputNewLabourName" class="col-sm-2 control-label">名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputNewLabourName">
+                        </div>
+                    </div>
+                </form>
+                <div class="no-padding-margin">
+                    <p id="newLabourHint" class="text-center nodeTreeModalHint"></p>
+                </div>
+                <form class="form-inline text-center">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" id="newLabourBtn">确认
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--重命名节点模态框-->
+<div class="modal fade" id="renameNodeModal" tabindex="-1" role="dialog"
+     aria-labelledby="renameNodeModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="renameNodeModalLabel">
+                    重命名</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputRenameNodeName" class="col-sm-2 control-label">名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputRenameNodeName">
+                        </div>
+                    </div>
+                </form>
+                <div class="no-padding-margin">
+                    <p id="renameNodeNameHint" class="text-center nodeTreeModalHint"></p>
+                </div>
+                <form class="form-inline text-center">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary"
+                                id="renameNodeNameBtn">确认
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--删除有子节点的节点模态框-->
+<div class="modal fade" id="deleteNodeAndChildrenModal" tabindex="-1"
+     role="dialog" aria-labelledby="renameNodeModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center"
+                    id="deleteNodeAndChildrenModalLabel">该节点有子节点，是否要删除？</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline text-center">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary"
+                                id="deleteNodeAndChildrenModalBtn">确认
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--类别模态框-->
+<div class="modal fade" id="editComponentCategoryModal" tabindex="-1"
+     role="dialog" aria-labelledby="editComponentCategoryModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center"
+                    id="editComponentCategoryModalLabel"><font size="3" face="微软雅黑">
+                    编辑类别
+                </font></h4>
+            </div>
+            <div class="modal-body">
+                <div id="catesForm">
+
+                </div>
+                <div id="newCateDiv" style="width: 60%">
+                    <button id="newComponentCategoryBtn" type="button"
+                            class="btn btn-primary btn-lg btn-block"><font size="3" face="微软雅黑">
+                        新建类别
+                    </font>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="newComponentCategoryModal" tabindex="-1"
+     role="dialog" aria-labelledby="newCategoryModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="newCategoryModalLabel">新建类别</h4>
+            </div>
+            <div class="modal-body">
+                <p><font size="3" face="微软雅黑">
+                    请输入类别
+                </font></p>
+                <input type="text" class="form-control" id="newCategoryName">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><font size="3" face="微软雅黑">
+                    关闭
+                </font>
+                </button>
+                <button type="button" class="btn btn-primary"
+                        id="saveNewCategoryBtn"><font size="3" face="微软雅黑">
+                    提交
+                </font>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteComponentCategoryModal" tabindex="-1"
+     role="dialog" aria-labelledby="deleteCategoryModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="deleteCategoryModalLabel">删除类别</h4>
+            </div>
+            <div class="modal-body">
+                <div class="dropdown">
+                    <p><font size="3" face="微软雅黑">
+                        你要删除的类别为
+                    </font></p>
+                    <label id="deleteCateName"><font size="3" face="微软雅黑">
+                    </font></label>
+                    <p><font size="3" face="微软雅黑">
+                        是否确认？
+                    </font></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><font size="3" face="微软雅黑">
+                    关闭
+                </font>
+                </button>
+                <button type="button" class="btn btn-primary"
+                        id="saveDeleteCategoryBtn"><font size="3" face="微软雅黑">
+                    提交
+                </font>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="renameCategoryModal" tabindex="-1"
+     role="dialog" aria-labelledby="editCategoryModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="renameCategoryModalLabel">重命名</h4>
+            </div>
+            <div class="modal-body">
+                <div class="dropdown">
+                    <p><font size="3" face="微软雅黑">
+                        你要重命名的类别为
+                    </font></p>
+                    <label id="renameCateName"><font size="3" face="微软雅黑">
+                    </font></label>
+                </div>
+                <p><font size="3" face="微软雅黑">
+                    重命名为
+                </font></p>
+                <input type="text" class="form-control" id="editCategoryName">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><font size="3" face="微软雅黑">
+                    关闭
+                </font>
+                </button>
+                <button type="button" class="btn btn-primary"
+                        id="saveEditCategoryBtn"><font size="3" face="微软雅黑">
+                    提交
+                </font>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="releaseMsgModal" tabindex="-1"
+     role="dialog" aria-labelledby="releaseMsgTitle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="releaseMsgTitle">请输入修改描述</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" id="releaseMsg">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary"
+                        id="saveReleaseMsg">保存并发布
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="uploadDocumentModal" tabindex="-1"
+     role="dialog" aria-labelledby="uploadDocumentTitle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center" id="uploadDocumentModalTitle">上传文件</h4>
+            </div>
+            <div class="modal-body">
+
+                <form enctype="multipart/form-data" class="form-inline text-center">
+                    <div class="form-group">
+                        <input id="document" class="btn btn-default btn-sm form-control"
+                               type="file"
+                               name="file"/>
+                    </div>
+                </form>
+
+                <form class="form-inline text-center" style="padding-top: 10px">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary"
+                                id="uploadDocumentModalBtn">确认
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="replaceDocumentModal" tabindex="-1"
+     role="dialog" aria-labelledby="uploadDocumentTitle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center" id="replaceDocumentModalTitle">替换文件</h4>
+            </div>
+            <div class="modal-body">
+
+                <form enctype="multipart/form-data" class="form-inline text-center">
+                    <div class="form-group">
+                        <input id="document-replace" class="btn btn-default btn-sm form-control"
+                               type="file"
+                               name="file"/>
+                    </div>
+                </form>
+
+                <form class="form-inline text-center" style="padding-top: 10px">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary"
+                                id="replaceDocumentModalBtn">确认
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteDocumentModal" tabindex="-1"
+     role="dialog" aria-labelledby="uploadDocumentTitle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center" id="deleteDocumentModalTitle">是否要删除文件？</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline text-center" style="padding-top: 10px">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary"
+                                id="deleteDocumentModalBtn">确认
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="markBomModal" tabindex="-1"
+     role="dialog" aria-labelledby="uploadDocumentTitle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center" id="markBomModalTitle">是否要生成生产部BOM?</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline text-center" style="padding-top: 10px">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary"
+                                id="markBomModalBtn">确认
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<!--节点树-->
+<script src="//cdn.bootcss.com/jstree/3.3.1/jstree.min.js"></script>
+<!--鼠标右键-->
+<script
+        src="//cdn.bootcss.com/jquery-contextmenu/2.2.3/jquery.contextMenu.min.js"></script>
+<script
+        src="//cdn.bootcss.com/jquery-contextmenu/2.2.3/jquery.ui.position.min.js"></script>
+<!--浏览器滚动条-->
+<script src="js/jquery.mCustomScrollbar.min.js"></script>
+<!--文件上传-->
+<script src="//cdn.bootcss.com/plupload/2.1.9/plupload.full.min.js"></script>
+<!--键盘事件-->
+<script src="//cdn.bootcss.com/keymaster/1.6.1/keymaster.min.js"></script>
+<script src="js/index.js"></script>
+<script src="js/category.js"></script>
+</html>

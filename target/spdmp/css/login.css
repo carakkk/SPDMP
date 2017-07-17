@@ -1,0 +1,52 @@
+body {
+    background-color: #363D47;
+    overflow-y: hidden;
+}
+
+#loginForm {
+    margin-top: 7em;
+}
+
+.form-group-login-form {
+    width: 25em;
+}
+
+.form-group-login-btn {
+    width: 10em;
+}
+
+.form-image {
+    margin-right: 0;
+    height: 3em;
+    float: left;
+}
+
+.form-input {
+    height: 3em;
+    width: 8em;
+    border: solid #5E6577;
+    background-color: #363D47;
+    color: #d0e5f5;
+    font-family: "Microsoft YaHei", serif;
+}
+
+#loginBtn {
+    margin-top: 3em;
+    border: none;
+    width: 10em;
+    font-size: large;
+    color: #d0e5f5;
+    background-color: #4DBBF6;
+}
+
+#loginMsg {
+    margin-top: 1em;
+    font-size: large;
+    font-family: "Microsoft YaHei", serif;
+    color: #d0e5f5;
+}
+
+.foot-image {
+    position: relative;
+    margin-top: 10em;
+}

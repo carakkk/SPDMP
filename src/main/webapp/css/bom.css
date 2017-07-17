@@ -1,0 +1,116 @@
+html {
+    width: 1920px;
+    height: 100%;
+}
+
+body{
+    width: 1920px;
+    height: 100%;
+}
+
+.no-padding-margin {
+    margin: 0;
+    padding: 0;
+}
+
+#bom-type {
+    font-size: 25px;
+}
+
+#bom-name {
+    font-size: 25px;
+}
+
+#editBomInfoBtn {
+    height: auto;
+    color: #fff;
+    background-color: #62BC88;
+    border-color: #fff;
+    float: right;
+    display: block;
+    margin-top: 3.5px;
+    margin-right: 60px;
+}
+
+#returnIndexBtn{
+    height: auto;
+    color: #fff;
+    background-color: #62BC88;
+    border-color: #fff;
+    float: right;
+    display: block;
+    margin-top: 3.5px;
+    margin-right: 115px;
+}
+
+#bomTable {
+    position: absolute;
+    top: 15%;
+    left: 2%;
+    padding: 5px;
+}
+
+.table-position {
+    width: 96%;
+    position: absolute;
+    top: 15%;
+}
+
+#saveBomInfoBtn {
+    height: auto;
+    color: #fff;
+    background-color: #c9302c;
+    border-color: #fff;
+    float: right;
+    display: none;
+    margin-top: 3.5px;
+    margin-right: 60px;
+}
+
+#deriveBomBtn {
+    height: auto;
+    color: #fff;
+    background-color: #62BC88;
+    border-color: #fff;
+    position: absolute;
+    top: 9.3%;
+    right: 2%;
+}
+
+
+#bomTableInfo {
+    display: block;
+}
+
+.thead-common {
+    height: 40px;
+    width: 6%;
+    background-color: #378CC5;
+    text-align: center;
+    font-family: "微软雅黑";
+    font-size: 17px;
+}
+
+.tbody-white {
+    background-color: white;
+    text-align: left;
+    font-family: "微软雅黑";
+    font-size: 15px;
+}
+
+.tbody-gray {
+    background-color: lightgray;
+    text-align: left;
+}
+
+.btns-position {
+    position: absolute;
+    top: 9.3%;
+    right: 2%;
+}
+
+.name-position {
+    position: absolute;
+    top: 10%;
+    left: 2%;
+}

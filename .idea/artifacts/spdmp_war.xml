@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="spdmp:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="spdmp.war">
+      <element id="artifact" artifact-name="spdmp:war exploded" />
+    </root>
+  </artifact>
+</component>
